@@ -16,8 +16,12 @@ fi
 
 API="https://www.1secmail.com/api/v1/?action"
 
-while getopts "R:" opt; do
+while getopts "hR:" opt; do
   case "$opt" in
+    h)
+      usage
+      ;;
+
     R)
       count="$OPTARG"
       if [ -z "$count" ]; then
