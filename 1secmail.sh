@@ -16,7 +16,7 @@ fi
 
 API="https://www.1secmail.com/api/v1/?action"
 
-while getopts "hR:" opt; do
+while getopts "hR:D" opt; do
   case "$opt" in
     h)
       usage
@@ -29,6 +29,10 @@ while getopts "hR:" opt; do
       fi
 
       curl -s "$API=genRandomMailbox&count=$count" | jq -r '.[]'
+      ;;
+
+    D)
+      curl -s "$API=getDomainList" | jq -r '.[]'
       ;;
 
     *)
