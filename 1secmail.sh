@@ -6,7 +6,14 @@ if command -v jq > /dev/null 2>&1; then :; else
 fi
 
 usage() {
-  echo "Usage: $0 [-R count?]" 1>&2
+  echo "Usage: $0 [...options]" 1>&2
+  cat 1>&2 << EOM
+
+Options:
+  -h              Show this help menu
+  -R <count>      Get random email addresses
+  -D              Get list of domains
+EOM
   exit 2
 }
 
