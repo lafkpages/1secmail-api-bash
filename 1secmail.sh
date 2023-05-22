@@ -23,7 +23,10 @@ fi
 
 API="https://www.1secmail.com/api/v1/?action"
 
-while getopts "hR:D" opt; do
+EMAIL=""
+DOMAIN=""
+
+while getopts "hR:De:d:E" opt; do
   case "$opt" in
     h)
       usage
@@ -40,6 +43,25 @@ while getopts "hR:D" opt; do
 
     D)
       curl -s "$API=getDomainList" | jq -r '.[]'
+      ;;
+
+    e)
+      EMAIL="$OPTARG"
+      ;;
+
+    d)
+      DOMAIN="$OPTARG"
+      ;;
+
+    E)
+      if [ -z "$EMAIL" ]; then
+        echo "Missing email" 1>&2
+      fi
+      if [ -z "$DOMAIN" ]; then
+        echo "Missing domain" 1>&2
+      fi
+
+      curl -s "$API=getMessages&login=$EMAIL&domain=$DOMAIN"
       ;;
 
     *)
