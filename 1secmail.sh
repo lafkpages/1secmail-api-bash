@@ -13,6 +13,9 @@ Options:
   -h              Show this help menu
   -R <count>      Get random email addresses
   -D              Get list of domains
+  -e              Email username
+  -d              Email domain
+  -E              Check emails (-e and -d required)
 EOM
   exit 2
 }
