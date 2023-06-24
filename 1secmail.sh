@@ -59,9 +59,11 @@ while getopts "hR:De:d:E" opt; do
     E)
       if [ -z "$EMAIL" ]; then
         echo "Missing email" 1>&2
+        exit 1
       fi
       if [ -z "$DOMAIN" ]; then
         echo "Missing domain" 1>&2
+        exit 1
       fi
 
       if [ -z "$OPTARG" ]; then
