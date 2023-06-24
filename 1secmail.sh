@@ -15,7 +15,7 @@ Options:
   -D              Get list of domains
   -e              Email username
   -d              Email domain
-  -E [id]         Check email(s) (-e and -d required)
+  -E              Check emails (-e and -d required)
 EOM
   exit 2
 }
@@ -29,7 +29,7 @@ API="https://www.1secmail.com/api/v1/?action"
 EMAIL=""
 DOMAIN=""
 
-while getopts "hR:De:d:E:" opt; do
+while getopts "hR:De:d:E" opt; do
   case "$opt" in
     h)
       usage
@@ -66,8 +66,8 @@ while getopts "hR:De:d:E:" opt; do
 
       if [ -z "$OPTARG" ]; then
         curl -s "$API=getMessages&login=$EMAIL&domain=$DOMAIN"
-      else
-        curl -s "$API=readMessage&login=$EMAIL&domain=$DOMAIN&id=$OPTARG"
+      # else
+      #   curl -s "$API=readMessage&login=$EMAIL&domain=$DOMAIN&id=$OPTARG"
       fi
       ;;
 
