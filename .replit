@@ -1,4 +1,7 @@
 run = "./1secmail.sh"
 
+[env]
+PATH = "/home/runner/$REPL_SLUG/bin:$PATH"
+
 [nix]
 channel = "stable-22_11"
