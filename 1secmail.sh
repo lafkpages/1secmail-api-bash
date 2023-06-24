@@ -49,7 +49,11 @@ while getopts "hR:De:d:E" opt; do
       ;;
 
     e)
-      EMAIL="$OPTARG"
+      if [[ "$OPTARG" =~ @ ]]; then
+        IFS="@" read -r EMAIL DOMAIN <<< "$OPTARG"
+      else
+        EMAIL="$OPTARG"
+      fi
       ;;
 
     d)
