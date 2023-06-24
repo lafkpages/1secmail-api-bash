@@ -15,7 +15,7 @@ Options:
   -D              Get list of domains
   -e              Email username
   -d              Email domain
-  -E              Check emails (-e and -d required)
+  -E              Check emails (-e required)
 EOM
   exit 2
 }
