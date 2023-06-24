@@ -16,6 +16,7 @@ Options:
   -e              Email username
   -d              Email domain
   -l              Check emails (-e required)
+  -E <id>         Check email by ID
 EOM
   exit 2
 }
@@ -43,7 +44,7 @@ requireDomain() {
   fi
 }
 
-while getopts "hR:De:d:l" opt; do
+while getopts "hR:De:d:lE:" opt; do
   case "$opt" in
     h)
       usage
@@ -82,11 +83,21 @@ while getopts "hR:De:d:l" opt; do
       requireEmail
       requireDomain
 
+      curl -s "$API=getMessages&login=$EMAIL&domain=$DOMAIN"
+
+      ;;
+
+    E)
+      requireEmail
+      requireDomain
+
       if [ -z "$OPTARG" ]; then
-        curl -s "$API=getMessages&login=$EMAIL&domain=$DOMAIN"
-      # else
-      #   curl -s "$API=readMessage&login=$EMAIL&domain=$DOMAIN&id=$OPTARG"
+        echo "Missing email ID" 1>&2
+        exit 1
       fi
+
+      curl -s "$API=readMessage&login=$EMAIL&domain=$DOMAIN&id=$OPTARG"
+
       ;;
 
     *)
