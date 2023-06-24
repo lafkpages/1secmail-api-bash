@@ -15,7 +15,7 @@ Options:
   -D              Get list of domains
   -e              Email username
   -d              Email domain
-  -E              Check emails (-e required)
+  -l              Check emails (-e required)
 EOM
   exit 2
 }
@@ -43,7 +43,7 @@ requireDomain() {
   fi
 }
 
-while getopts "hR:De:d:E" opt; do
+while getopts "hR:De:d:l" opt; do
   case "$opt" in
     h)
       usage
@@ -78,7 +78,7 @@ while getopts "hR:De:d:E" opt; do
       requireDomain
       ;;
 
-    E)
+    l)
       requireEmail
       requireDomain
 
