@@ -29,6 +29,20 @@ API="https://www.1secmail.com/api/v1/?action"
 EMAIL=""
 DOMAIN=""
 
+requireEmail() {
+  if [ -z "$EMAIL" ]; then
+    echo "Missing email" 1>&2
+    exit 1
+  fi
+}
+
+requireDomain() {
+  if [ -z "$DOMAIN" ]; then
+    echo "Missing domain" 1>&2
+    exit 1
+  fi
+}
+
 while getopts "hR:De:d:E" opt; do
   case "$opt" in
     h)
@@ -51,24 +65,22 @@ while getopts "hR:De:d:E" opt; do
     e)
       if [[ "$OPTARG" =~ @ ]]; then
         IFS="@" read -r EMAIL DOMAIN <<< "$OPTARG"
+        requireEmail
+        requireDomain
       else
         EMAIL="$OPTARG"
+        requireEmail
       fi
       ;;
 
     d)
       DOMAIN="$OPTARG"
+      requireDomain
       ;;
 
     E)
-      if [ -z "$EMAIL" ]; then
-        echo "Missing email" 1>&2
-        exit 1
-      fi
-      if [ -z "$DOMAIN" ]; then
-        echo "Missing domain" 1>&2
-        exit 1
-      fi
+      requireEmail
+      requireDomain
 
       if [ -z "$OPTARG" ]; then
         curl -s "$API=getMessages&login=$EMAIL&domain=$DOMAIN"
