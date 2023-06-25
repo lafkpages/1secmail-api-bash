@@ -2,6 +2,7 @@ run = "./1secmail.sh"
 
 [env]
 PATH = "/home/runner/$REPL_SLUG/bin:$PATH"
+ONESECMAIL = "test@1secmail.com"
 
 [nix]
 channel = "stable-22_11"
