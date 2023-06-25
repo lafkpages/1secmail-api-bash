@@ -95,6 +95,8 @@ while getopts "hR:De:d:lE:" opt; do
 
       curl -s "$API=getMessages&login=$EMAIL&domain=$DOMAIN"
 
+      echo
+
       ;;
 
     E)
