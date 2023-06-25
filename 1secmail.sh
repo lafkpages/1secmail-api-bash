@@ -48,6 +48,12 @@ setEmail() {
   IFS="@" read -r EMAIL DOMAIN <<< "$1"
 }
 
+if [ -n "$ONESECMAIL" ]; then
+  setEmail "$ONESECMAIL"
+  requireEmail
+  requireDomain
+fi
+
 while getopts "hR:De:d:lE:" opt; do
   case "$opt" in
     h)
