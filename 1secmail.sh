@@ -44,6 +44,10 @@ requireDomain() {
   fi
 }
 
+setEmail() {
+  IFS="@" read -r EMAIL DOMAIN <<< "$1"
+}
+
 while getopts "hR:De:d:lE:" opt; do
   case "$opt" in
     h)
@@ -65,7 +69,7 @@ while getopts "hR:De:d:lE:" opt; do
 
     e)
       if [[ "$OPTARG" =~ @ ]]; then
-        IFS="@" read -r EMAIL DOMAIN <<< "$OPTARG"
+        setEmail "$OPTARG"
         requireEmail
         requireDomain
       else
