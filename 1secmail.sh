@@ -30,6 +30,8 @@ API="https://www.1secmail.com/api/v1/?action"
 EMAIL=""
 DOMAIN=""
 
+VERBOSE="0"
+
 requireEmail() {
   if [ -z "$EMAIL" ]; then
     echo "Missing email" 1>&2
@@ -48,14 +50,25 @@ setEmail() {
   IFS="@" read -r EMAIL DOMAIN <<< "$1"
 }
 
+# Verbose echo, only if VERBOSE is 1
+vecho() {
+  if [ "$VERBOSE" = "1" ]; then
+    echo "$@"
+  fi
+}
+
 if [ -n "$ONESECMAIL" ]; then
   setEmail "$ONESECMAIL"
   requireEmail
   requireDomain
 fi
 
-while getopts "hR:De:d:lE:" opt; do
+while getopts "vhR:De:d:lE:" opt; do
   case "$opt" in
+    v)
+      VERBOSE="1"
+      ;;
+
     h)
       usage
       ;;
@@ -92,6 +105,8 @@ while getopts "hR:De:d:lE:" opt; do
     l)
       requireEmail
       requireDomain
+
+      vecho "Listing emails for $EMAIL@$DOMAIN"
 
       curl -s "$API=getMessages&login=$EMAIL&domain=$DOMAIN"
 
