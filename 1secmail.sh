@@ -127,6 +127,8 @@ while getopts "vhR:De:d:lE:" opt; do
 
       curl -s "$API=readMessage&login=$EMAIL&domain=$DOMAIN&id=$OPTARG"
 
+      echo
+
       ;;
 
     *)
