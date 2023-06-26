@@ -123,6 +123,8 @@ while getopts "vhR:De:d:lE:" opt; do
         exit 1
       fi
 
+      vecho "Getting email ID $OPTARG from $EMAIL@$DOMAIN"
+
       curl -s "$API=readMessage&login=$EMAIL&domain=$DOMAIN&id=$OPTARG"
 
       ;;
